@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class SearchUserScreenViewModel @Inject constructor(
+class GithubUserFinderScreenViewModel @Inject constructor(
     private val searchUsersUseCase: SearchUsersUseCase,
     private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
