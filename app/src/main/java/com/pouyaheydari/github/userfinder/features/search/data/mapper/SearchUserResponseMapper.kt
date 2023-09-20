@@ -11,9 +11,9 @@ fun map(response: Result<SearchUsersApiResponse>): SearchUsersDataState =
         else -> handleFailure()
     }
 
-fun handleFailure(): SearchUsersDataState = SearchUsersDataState.Failure
+private fun handleFailure(): SearchUsersDataState = SearchUsersDataState.Failure
 
-fun handleSuccess(response: SearchUsersApiResponse?): SearchUsersDataState =
+private fun handleSuccess(response: SearchUsersApiResponse?): SearchUsersDataState =
     response?.items?.let { list ->
         val mappedList = list.map {
             UserModel(imageUrl = it.avatarUrl, title = it.login)
