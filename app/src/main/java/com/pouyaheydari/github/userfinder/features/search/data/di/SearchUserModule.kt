@@ -11,5 +11,6 @@ import retrofit2.Retrofit
 @InstallIn(SingletonComponent::class)
 class SearchUserModule {
     @Provides
-    fun provideSearchUserRemote(retrofit: Retrofit): UsersApiService = retrofit.create(UsersApiService::class.java)
+    fun provideSearchUserRemote(retrofit: Retrofit): UsersApiService = retrofit.create(
+        UsersApiService::class.java)
 }

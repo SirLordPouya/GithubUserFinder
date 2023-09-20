@@ -2,7 +2,7 @@ package com.pouyaheydari.github.userfinder.data
 
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
 import com.pouyaheydari.github.userfinder.features.search.data.UsersApiService
-import com.pouyaheydari.github.userfinder.features.search.data.models.UserModel
+import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
 import javax.inject.Inject
 import com.pouyaheydari.github.userfinder.features.details.data.map as userDetailsResponseMapper
 import com.pouyaheydari.github.userfinder.features.search.data.mapper.map as searchUserResponseMapper
@@ -10,11 +10,14 @@ import com.pouyaheydari.github.userfinder.features.search.data.mapper.map as sea
 
 class UserRepositoryImpl @Inject constructor(private val usersApiService: UsersApiService) :
     UserRepository {
-    override suspend fun searchUsers(phrase: String, page: Int): List<UserModel> =
-        usersApiService.searchUsers(phrase, page)
+    override suspend fun searchUsers(
+        phrase: String,
+        page: Int,
+        itemsPerPage: Int
+    ): SearchUsersDataState =
+        usersApiService.searchUsers(phrase, page, itemsPerPage)
             .run(::searchUserResponseMapper)
 
     override suspend fun getUser(userName: String): UserDetailsDataState =
-        usersApiService.getUser(userName)
-            .run(::userDetailsResponseMapper)
+        usersApiService.getUser(userName).run(::userDetailsResponseMapper)
 }

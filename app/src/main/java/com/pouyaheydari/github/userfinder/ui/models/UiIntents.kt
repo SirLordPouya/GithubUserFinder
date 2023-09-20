@@ -5,4 +5,5 @@ sealed interface UiIntents {
     data class OnUserItemSelected(val userName: String) : UiIntents
     data object OnBottomSheetDismissed : UiIntents
     data object OnErrorDismissed : UiIntents
+    data object OnNextPageRequested : UiIntents
 }

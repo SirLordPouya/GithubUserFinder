@@ -2,6 +2,7 @@ package com.pouyaheydari.github.userfinder.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
@@ -10,6 +11,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -17,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.pouyaheydari.github.userfinder.R
 import com.pouyaheydari.github.userfinder.features.details.ui.components.BottomSheetComponent
 import com.pouyaheydari.github.userfinder.features.search.ui.SearchUserScreen
@@ -32,8 +33,20 @@ fun GithubUserFinderScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
+    val isAtBottom by remember {
+        derivedStateOf {
+            // We can improve the user experience by fetching items when there are some more items
+            // to the bottom. Skipping it for this sample project.
+            listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == listState.layoutInfo.totalItemsCount - 1
+        }
+    }
     val snackBarHostState = remember { SnackbarHostState() }
-    val users = state.users.collectAsLazyPagingItems()
+    val users = state.users
+
+    LaunchedEffect(isAtBottom) {
+        if (isAtBottom) sendUserIntent(viewModel = viewModel, UiIntents.OnNextPageRequested)
+    }
 
     @Composable
     fun showSnackBar(message: String = "") {
@@ -76,6 +89,7 @@ fun GithubUserFinderScreen(
             isLoading = state.isLoading,
             userName = state.phrase,
             usersList = users,
+            listState = listState,
             onSearchValueChanged = {
                 sendUserIntent(viewModel, UiIntents.OnPhraseChanged(it))
             },

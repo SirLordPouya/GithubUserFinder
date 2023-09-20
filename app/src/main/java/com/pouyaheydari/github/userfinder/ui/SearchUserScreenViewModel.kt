@@ -2,11 +2,12 @@ package com.pouyaheydari.github.userfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetails
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
 import com.pouyaheydari.github.userfinder.features.details.domain.GetUserUseCase
-import com.pouyaheydari.github.userfinder.features.search.domain.SearchUsersWithPagingLibraryUseCase
+import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
+import com.pouyaheydari.github.userfinder.features.search.data.models.UserModel
+import com.pouyaheydari.github.userfinder.features.search.domain.SearchUsersUseCase
 import com.pouyaheydari.github.userfinder.ui.models.SearchUserUiState
 import com.pouyaheydari.github.userfinder.ui.models.SelectedUser
 import com.pouyaheydari.github.userfinder.ui.models.UiIntents
@@ -23,7 +24,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SearchUserScreenViewModel @Inject constructor(
-    private val searchUsersWithPagingLibraryUseCase: SearchUsersWithPagingLibraryUseCase,
+    private val searchUsersUseCase: SearchUsersUseCase,
     private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
 
@@ -54,6 +55,11 @@ class SearchUserScreenViewModel @Inject constructor(
             UiIntents.OnErrorDismissed -> {
                 _uiState.update { it.copy(isError = false) }
             }
+
+            UiIntents.OnNextPageRequested -> {
+                _uiState.update { it.copy(isLoading = true) }
+                searchUsers(_uiState.value.phrase)
+            }
         }
 
     private fun updateUserNameFlow(phrase: String) {
@@ -79,20 +85,29 @@ class SearchUserScreenViewModel @Inject constructor(
         viewModelScope.launch {
             userNameFlow
                 .debounce(2000)
-                .collectLatest {
-                    searchUsers(it)
-                }
+                .collectLatest { searchUsers(it) }
         }
     }
 
     private fun searchUsers(phrase: String) {
-        val users = searchUsersWithPagingLibraryUseCase(phrase).cachedIn(viewModelScope)
-        _uiState.update { it.copy(users = users, isLoading = false, isError = false) }
+        viewModelScope.launch {
+            when (val result = searchUsersUseCase(phrase)) {
+                is SearchUsersDataState.Failure -> showError()
+
+                is SearchUsersDataState.Success -> showUsersList(result.users)
+            }
+        }
     }
 
     private fun showError() {
         _uiState.update {
             it.copy(isError = true, isLoading = false, shouldShowBottomSheet = false)
+        }
+    }
+
+    private fun showUsersList(users: List<UserModel>) {
+        _uiState.update {
+            it.copy(users = users, isLoading = false, isError = false)
         }
     }
 

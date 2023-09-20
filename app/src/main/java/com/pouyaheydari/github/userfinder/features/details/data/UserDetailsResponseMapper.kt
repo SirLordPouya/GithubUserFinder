@@ -11,7 +11,7 @@ fun map(response: Result<UserDetailsApiResponse>): UserDetailsDataState =
         else -> handleFailure()
     }
 
-fun handleFailure(): UserDetailsDataState = UserDetailsDataState.Failure
+private fun handleFailure(): UserDetailsDataState = UserDetailsDataState.Failure
 
 private fun handleSuccess(response: Result<UserDetailsApiResponse>): UserDetailsDataState =
     response.getOrNull()?.let {

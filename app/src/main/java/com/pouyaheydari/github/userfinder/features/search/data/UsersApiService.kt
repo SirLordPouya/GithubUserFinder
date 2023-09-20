@@ -11,8 +11,8 @@ interface UsersApiService {
     suspend fun searchUsers(
         @Query("q") phrase: String,
         @Query("page") page: Int,
-        @Query("per_page") perPage: Int = 100,
-    ): SearchUsersApiResponse
+        @Query("per_page") perPage: Int,
+    ): Result<SearchUsersApiResponse>
 
     @GET("users/{USERNAME}")
     suspend fun getUser(
