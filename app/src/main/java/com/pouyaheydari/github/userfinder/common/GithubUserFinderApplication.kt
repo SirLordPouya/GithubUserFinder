@@ -1,4 +1,4 @@
-package com.pouyaheydari.github.userfinder
+package com.pouyaheydari.github.userfinder.common
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
