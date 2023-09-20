@@ -81,8 +81,7 @@ private fun SearchComponent(
     isLoading: Boolean = false
 ) = with(boxScope) {
     Card(
-        modifier =
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 30.dp)
             .align(Alignment.BottomCenter),

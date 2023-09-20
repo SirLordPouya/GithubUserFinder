@@ -29,23 +29,21 @@ fun UserItemComponent(
     onUserClicked: (String) -> Unit = {},
 ) {
     Card(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .clickable { onUserClicked(title) },
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onUserClicked(title) },
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             AsyncImage(
-                modifier =
-                    Modifier
-                        .padding(end = 16.dp)
-                        .width(80.dp)
-                        .height(80.dp)
-                        .clip(RoundedCornerShape(50.dp)),
-                placeholder = painterResource(id = R.drawable.ic_launcher_background),
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .width(80.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(50.dp)),
+                placeholder = painterResource(id = R.drawable.ic_user),
                 model = imageUrl,
                 contentDescription = null,
             )
