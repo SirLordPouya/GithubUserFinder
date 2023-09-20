@@ -30,8 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pouyaheydari.github.userfinder.R
-import com.pouyaheydari.github.userfinder.ui.theme.GithubUserFinderTheme
-import com.pouyaheydari.github.userfinder.ui.theme.HeaderShape
+import com.pouyaheydari.github.userfinder.common.ui.theme.GithubUserFinderTheme
+import com.pouyaheydari.github.userfinder.common.ui.theme.HeaderShape
 
 @Composable
 fun SearchHeaderComponent(

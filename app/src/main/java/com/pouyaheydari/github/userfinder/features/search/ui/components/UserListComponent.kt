@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pouyaheydari.github.userfinder.features.search.data.models.UserModel
-import com.pouyaheydari.github.userfinder.ui.theme.GithubUserFinderTheme
+import com.pouyaheydari.github.userfinder.common.ui.theme.GithubUserFinderTheme
 
 @Composable
 fun UserListComponent(

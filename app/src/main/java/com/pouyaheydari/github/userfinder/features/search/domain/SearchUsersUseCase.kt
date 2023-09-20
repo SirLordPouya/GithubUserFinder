@@ -1,6 +1,6 @@
 package com.pouyaheydari.github.userfinder.features.search.domain
 
-import com.pouyaheydari.github.userfinder.base.usecase.UseCase
+import com.pouyaheydari.github.userfinder.common.base.usecase.UseCase
 import com.pouyaheydari.github.userfinder.data.UserRepository
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
 import com.pouyaheydari.github.userfinder.features.search.data.models.UserModel

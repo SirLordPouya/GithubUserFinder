@@ -1,4 +1,4 @@
-package com.pouyaheydari.github.userfinder.base.usecase
+package com.pouyaheydari.github.userfinder.common.base.usecase
 
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
