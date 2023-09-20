@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pouyaheydari.github.userfinder.R
 import com.pouyaheydari.github.userfinder.features.details.ui.components.BottomSheetComponent
@@ -29,7 +28,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun GithubUserFinderScreen(
     modifier: Modifier = Modifier,
-    viewModel: SearchUserScreenViewModel = hiltViewModel(),
+    viewModel: SearchUserScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
