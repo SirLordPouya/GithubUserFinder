@@ -1,4 +1,4 @@
-package com.pouyaheydari.github.userfinder.ui.theme
+package com.pouyaheydari.github.userfinder.common.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.pouyaheydari.github.userfinder.ui.theme
+package com.pouyaheydari.github.userfinder.common.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
