@@ -5,7 +5,4 @@ sealed interface UiIntents {
     data class OnUserItemSelected(val userName: String) : UiIntents
     data object OnBottomSheetDismissed : UiIntents
     data object OnErrorDismissed : UiIntents
-    data object OnPagingError : UiIntents
-    data object OnPagingLoading : UiIntents
-    data object OnPagingLoadingFinished : UiIntents
 }

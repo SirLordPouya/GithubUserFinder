@@ -11,11 +11,11 @@ import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class SearchUsersUseCaseTest {
+class SearchUsersWithPagingLibraryUseCaseTest {
 
     private val userRepository: UserRepository = mock(UserRepository::class.java)
 
-    private val searchUsersUseCase = SearchUsersUseCase(userRepository)
+    private val searchUsersWithPagingLIbraryUseCase = SearchUsersWithPagingLibraryUseCase(userRepository)
 
     @Test
     fun testInvokeWhenValidPhraseThenCallsSearchUsersWithCorrectParameters(): Unit = runBlocking {
@@ -25,7 +25,7 @@ class SearchUsersUseCaseTest {
         Mockito.`when`(userRepository.searchUsers(phrase, 1)).thenReturn(expectedUsers)
 
         // Act
-        searchUsersUseCase.invoke(phrase)
+        searchUsersWithPagingLIbraryUseCase.invoke(phrase)
 
         // Assert
         Mockito.verify(userRepository).searchUsers(phrase, 1)
@@ -39,7 +39,7 @@ class SearchUsersUseCaseTest {
         Mockito.`when`(userRepository.searchUsers(phrase, 1)).thenReturn(expectedUsers)
 
         // Act
-        val result = searchUsersUseCase.invoke(phrase)
+        val result = searchUsersWithPagingLIbraryUseCase.invoke(phrase)
 
         // Assert
         assertEquals(expectedUsers, result)

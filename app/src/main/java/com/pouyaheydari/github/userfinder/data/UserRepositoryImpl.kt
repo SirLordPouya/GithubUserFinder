@@ -1,6 +1,6 @@
 package com.pouyaheydari.github.userfinder.data
 
-import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetails
+import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
 import com.pouyaheydari.github.userfinder.features.search.data.UsersApiService
 import com.pouyaheydari.github.userfinder.features.search.data.models.UserModel
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class UserRepositoryImpl @Inject constructor(private val usersApiService: UsersA
         usersApiService.searchUsers(phrase, page)
             .run(::searchUserResponseMapper)
 
-    override suspend fun getUser(userName: String): UserDetails =
+    override suspend fun getUser(userName: String): UserDetailsDataState =
         usersApiService.getUser(userName)
             .run(::userDetailsResponseMapper)
 }

@@ -17,5 +17,5 @@ interface UsersApiService {
     @GET("users/{USERNAME}")
     suspend fun getUser(
         @Path("USERNAME") userName: String,
-    ): UserDetailsApiResponse
+    ): Result<UserDetailsApiResponse>
 }

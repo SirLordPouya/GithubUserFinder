@@ -3,8 +3,10 @@ package com.pouyaheydari.github.userfinder.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetails
+import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
 import com.pouyaheydari.github.userfinder.features.details.domain.GetUserUseCase
-import com.pouyaheydari.github.userfinder.features.search.domain.SearchUsersUseCase
+import com.pouyaheydari.github.userfinder.features.search.domain.SearchUsersWithPagingLibraryUseCase
 import com.pouyaheydari.github.userfinder.ui.models.SearchUserUiState
 import com.pouyaheydari.github.userfinder.ui.models.SelectedUser
 import com.pouyaheydari.github.userfinder.ui.models.UiIntents
@@ -21,7 +23,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SearchUserScreenViewModel @Inject constructor(
-    private val searchUsersUseCase: SearchUsersUseCase,
+    private val searchUsersWithPagingLibraryUseCase: SearchUsersWithPagingLibraryUseCase,
     private val getUserUseCase: GetUserUseCase,
 ) : ViewModel() {
 
@@ -52,18 +54,6 @@ class SearchUserScreenViewModel @Inject constructor(
             UiIntents.OnErrorDismissed -> {
                 _uiState.update { it.copy(isError = false) }
             }
-
-            UiIntents.OnPagingError -> {
-                _uiState.update { it.copy(isError = true, isLoading = false) }
-            }
-
-            UiIntents.OnPagingLoading -> {
-                _uiState.update { it.copy(isLoading = true) }
-            }
-
-            UiIntents.OnPagingLoadingFinished -> {
-                _uiState.update { it.copy(isLoading = false) }
-            }
         }
 
     private fun updateUserNameFlow(phrase: String) {
@@ -74,20 +64,11 @@ class SearchUserScreenViewModel @Inject constructor(
 
     private fun getUser(userName: String) {
         viewModelScope.launch {
-            runCatching {
-                getUserUseCase(userName).apply {
-                    _uiState.update {
-                        it.copy(
-                            selectedUser = SelectedUser(repositories, followers),
-                            shouldShowBottomSheet = true,
-                            isLoading = false,
-                            isError = false
-                        )
-                    }
-                }
-            }.onFailure {
-                _uiState.update {
-                    it.copy(isError = true, isLoading = false, shouldShowBottomSheet = false)
+            getUserUseCase(userName).run {
+                when (this) {
+                    is UserDetailsDataState.Success -> showUserDetails(details)
+
+                    UserDetailsDataState.Failure -> showError()
                 }
             }
         }
@@ -105,7 +86,25 @@ class SearchUserScreenViewModel @Inject constructor(
     }
 
     private fun searchUsers(phrase: String) {
-        val users = searchUsersUseCase(phrase).cachedIn(viewModelScope)
+        val users = searchUsersWithPagingLibraryUseCase(phrase).cachedIn(viewModelScope)
         _uiState.update { it.copy(users = users, isLoading = false, isError = false) }
+    }
+
+    private fun showError() {
+        _uiState.update {
+            it.copy(isError = true, isLoading = false, shouldShowBottomSheet = false)
+        }
+    }
+
+    private fun showUserDetails(details: UserDetails) {
+        val selectedUser = SelectedUser(details.repositories, details.followers)
+        _uiState.update {
+            it.copy(
+                selectedUser = selectedUser,
+                shouldShowBottomSheet = true,
+                isLoading = false,
+                isError = false
+            )
+        }
     }
 }
