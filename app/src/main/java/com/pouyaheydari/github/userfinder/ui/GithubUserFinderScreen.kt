@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pouyaheydari.github.userfinder.R
 import com.pouyaheydari.github.userfinder.features.details.ui.components.BottomSheetComponent
 import com.pouyaheydari.github.userfinder.features.search.ui.SearchUserScreen
@@ -28,9 +29,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun GithubUserFinderScreen(
     modifier: Modifier = Modifier,
-    viewModel: SearchUserScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    userFinderViewModel: GithubUserFinderScreenViewModel = viewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by userFinderViewModel.uiState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
     val isAtBottom by remember {
@@ -44,7 +45,10 @@ fun GithubUserFinderScreen(
     val users = state.users
 
     LaunchedEffect(isAtBottom) {
-        if (isAtBottom) sendUserIntent(viewModel = viewModel, UiIntents.OnNextPageRequested)
+        if (isAtBottom) sendUserIntent(
+            viewModel = userFinderViewModel,
+            UiIntents.OnNextPageRequested
+        )
     }
 
     @Composable
@@ -56,7 +60,7 @@ fun GithubUserFinderScreen(
                     result.apply {
                         if (this == SnackbarResult.Dismissed) {
                             sendUserIntent(
-                                viewModel = viewModel,
+                                viewModel = userFinderViewModel,
                                 userIntent = UiIntents.OnErrorDismissed
                             )
                         }
@@ -70,7 +74,7 @@ fun GithubUserFinderScreen(
     fun showBottomSheet() {
         if (state.shouldShowBottomSheet) {
             ModalBottomSheet(onDismissRequest = {
-                sendUserIntent(viewModel = viewModel, UiIntents.OnBottomSheetDismissed)
+                sendUserIntent(viewModel = userFinderViewModel, UiIntents.OnBottomSheetDismissed)
             }) {
                 BottomSheetComponent(
                     modifier = Modifier.fillMaxWidth(),
@@ -90,12 +94,15 @@ fun GithubUserFinderScreen(
             usersList = users,
             listState = listState,
             onSearchValueChanged = {
-                sendUserIntent(viewModel, UiIntents.OnPhraseChanged(it))
+                sendUserIntent(userFinderViewModel, UiIntents.OnPhraseChanged(it))
             },
             onUserItemClicked = {
-                sendUserIntent(viewModel, UiIntents.OnUserItemSelected(it))
+                sendUserIntent(userFinderViewModel, UiIntents.OnUserItemSelected(it))
             }
         )
     }
+}
 
+private fun sendUserIntent(viewModel: GithubUserFinderScreenViewModel, userIntent: UiIntents) {
+    viewModel.onUserIntent(userIntent)
 }
