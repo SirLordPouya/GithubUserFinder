@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GithubUserFinder</string>
+    <string name="github_user_finder">Github User Finder</string>
+    <string name="search">Search</string>
+    <string name="repositories">Repositories: %d</string>
+    <string name="followers">Followers: %d</string>
+    <string name="please_enter_a_username">Please enter a username</string>
+    <string name="please_try_again">Please try again</string>
+</resources>
