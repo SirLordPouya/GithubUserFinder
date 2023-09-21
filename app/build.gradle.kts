@@ -89,6 +89,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito)
+    testImplementation(libs.mockito.kotlin)
 
     // Instrumented tests: jUnit rules and runners
     androidTestImplementation(composeBom)
