@@ -1,8 +1,8 @@
-package com.pouyaheydari.github.userfinder.features.details.data
+package com.pouyaheydari.github.userfinder.features.details.data.mappers
 
-import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsModel
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsApiResponse
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
+import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsModel
 
 fun map(response: Result<UserDetailsApiResponse>): UserDetailsDataState =
     when {

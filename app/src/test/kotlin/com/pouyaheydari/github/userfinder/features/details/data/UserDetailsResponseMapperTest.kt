@@ -1,5 +1,6 @@
 package com.pouyaheydari.github.userfinder.features.details.data
 
+import com.pouyaheydari.github.userfinder.features.details.data.mappers.map
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsApiResponse
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsModel
@@ -10,7 +11,7 @@ import org.junit.Test
 class UserDetailsResponseMapperTest {
 
     @Test
-    fun `when response is success and not empty then map the response to UserDetailsModel`() {
+    fun `when response is success then map the response to UserDetailsModel`() {
 
         val expected = UserDetailsDataState.Success(
             UserDetailsModel(repositories = 10, followers = 10)

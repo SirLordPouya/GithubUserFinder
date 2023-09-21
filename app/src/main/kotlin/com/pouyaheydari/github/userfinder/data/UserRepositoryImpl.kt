@@ -4,8 +4,8 @@ import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetai
 import com.pouyaheydari.github.userfinder.features.search.data.UsersApiService
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
 import javax.inject.Inject
-import com.pouyaheydari.github.userfinder.features.details.data.map as userDetailsResponseMapper
-import com.pouyaheydari.github.userfinder.features.search.data.mapper.map as searchUserResponseMapper
+import com.pouyaheydari.github.userfinder.features.details.data.mappers.map as userDetailsResponseMapper
+import com.pouyaheydari.github.userfinder.features.search.data.mappers.map as searchUserResponseMapper
 
 
 class UserRepositoryImpl @Inject constructor(private val usersApiService: UsersApiService) :

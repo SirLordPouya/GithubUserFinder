@@ -1,4 +1,4 @@
-package com.pouyaheydari.github.userfinder.features.search.data.mapper
+package com.pouyaheydari.github.userfinder.features.search.data.mappers
 
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersApiResponse
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
