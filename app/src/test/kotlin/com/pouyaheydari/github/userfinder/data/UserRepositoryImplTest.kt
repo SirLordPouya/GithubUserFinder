@@ -6,13 +6,10 @@ import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUser
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
 
-@RunWith(MockitoJUnitRunner::class)
 class UserRepositoryImplTest {
 
     private val usersApiService: UsersApiService = mock()

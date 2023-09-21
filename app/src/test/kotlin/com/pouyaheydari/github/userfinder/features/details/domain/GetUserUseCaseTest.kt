@@ -6,13 +6,10 @@ import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetai
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.whenever
 
-@RunWith(MockitoJUnitRunner::class)
 class GetUserUseCaseTest {
 
     private val userRepository: UserRepository = mock()
