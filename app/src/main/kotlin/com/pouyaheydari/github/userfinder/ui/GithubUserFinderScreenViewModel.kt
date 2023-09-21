@@ -2,7 +2,7 @@ package com.pouyaheydari.github.userfinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetails
+import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsModel
 import com.pouyaheydari.github.userfinder.features.details.data.models.UserDetailsDataState
 import com.pouyaheydari.github.userfinder.features.details.domain.GetUserUseCase
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
@@ -111,7 +111,7 @@ class GithubUserFinderScreenViewModel @Inject constructor(
         }
     }
 
-    private fun showUserDetails(details: UserDetails) {
+    private fun showUserDetails(details: UserDetailsModel) {
         val selectedUser = SelectedUser(details.repositories, details.followers)
         _uiState.update {
             it.copy(
