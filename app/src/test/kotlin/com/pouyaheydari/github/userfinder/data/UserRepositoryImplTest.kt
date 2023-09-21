@@ -17,34 +17,34 @@ class UserRepositoryImplTest {
 
     @Test
     fun `when service returns data then map the response to success`() = runBlocking {
-        val phrase = "test"
+        val userName = "test"
         val page = 1
         val itemsPerPage = 10
         val expectedData = SearchUsersDataState.Success(emptyList())
-        whenever(usersApiService.searchUsers(phrase, page, itemsPerPage)).thenReturn(
+        whenever(usersApiService.searchUsers(userName, page, itemsPerPage)).thenReturn(
             Result.success(
                 SearchUsersApiResponse(incompleteResults = false, items = listOf(), totalCount = 0)
             )
         )
 
-        val result = userRepository.searchUsers(phrase, page, itemsPerPage)
+        val result = userRepository.searchUsers(userName, page, itemsPerPage)
 
-        verify(usersApiService).searchUsers(phrase, page, itemsPerPage)
+        verify(usersApiService).searchUsers(userName, page, itemsPerPage)
         assertEquals(expectedData, result)
     }
 
     @Test
     fun `when service returns error then map the response to failure`(): Unit = runBlocking {
-        val phrase = ""
+        val userName = ""
         val page = -1
         val itemsPerPage = 0
         val expected = SearchUsersDataState.Failure
-        whenever(usersApiService.searchUsers(phrase, page, itemsPerPage))
+        whenever(usersApiService.searchUsers(userName, page, itemsPerPage))
             .thenReturn(
                 Result.failure(Exception())
             )
 
-        val result = userRepository.searchUsers(phrase, page, itemsPerPage)
+        val result = userRepository.searchUsers(userName, page, itemsPerPage)
 
         assertEquals(expected, result)
     }

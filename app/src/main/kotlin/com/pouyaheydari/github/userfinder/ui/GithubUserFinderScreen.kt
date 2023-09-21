@@ -90,7 +90,7 @@ fun GithubUserFinderScreen(
         SearchUserScreen(
             modifier = modifier.padding(contentPadding),
             isLoading = state.isLoading,
-            userName = state.phrase,
+            userName = state.userName,
             usersList = users,
             listState = listState,
             onSearchValueChanged = {

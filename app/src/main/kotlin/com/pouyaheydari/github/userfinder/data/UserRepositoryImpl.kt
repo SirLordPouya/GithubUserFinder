@@ -11,11 +11,11 @@ import com.pouyaheydari.github.userfinder.features.search.data.mappers.map as se
 class UserRepositoryImpl @Inject constructor(private val usersApiService: UsersApiService) :
     UserRepository {
     override suspend fun searchUsers(
-        phrase: String,
+        userName: String,
         page: Int,
         itemsPerPage: Int
     ): SearchUsersDataState =
-        usersApiService.searchUsers(phrase, page, itemsPerPage)
+        usersApiService.searchUsers(userName, page, itemsPerPage)
             .run(::searchUserResponseMapper)
 
     override suspend fun getUser(userName: String): UserDetailsDataState =

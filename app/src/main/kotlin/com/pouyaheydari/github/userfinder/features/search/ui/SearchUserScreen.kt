@@ -26,7 +26,7 @@ fun SearchUserScreen(
     Column(modifier = modifier.fillMaxSize()) {
         SearchHeaderComponent(
             modifier = Modifier.height(150.dp),
-            searchPhrase = userName,
+            userName = userName,
             isLoading = isLoading,
             onSearchValueChange = { onSearchValueChanged(it) },
         )

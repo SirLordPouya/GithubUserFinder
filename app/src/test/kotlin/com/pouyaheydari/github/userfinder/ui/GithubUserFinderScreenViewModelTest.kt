@@ -40,32 +40,32 @@ class GithubUserFinderScreenViewModelTest {
     }
 
     @Test
-    fun `when user enters a phrase, searchUsersUseCase is called`() = runTest {
-        val phrase = "test"
+    fun `when user enters a userName, searchUsersUseCase is called`() = runTest {
+        val userName = "test"
 
-        viewModel.onUserIntent(UiIntents.OnPhraseChanged(phrase))
+        viewModel.onUserIntent(UiIntents.OnPhraseChanged(userName))
         advanceUntilIdle()
 
-        verify(searchUsersUseCase).invoke(phrase)
+        verify(searchUsersUseCase).invoke(userName)
     }
 
     @Test
-    fun `when user enters a phrase, ui is updated`() = runTest {
-        val phrase = "test"
+    fun `when user enters a userName, ui is updated`() = runTest {
+        val userName = "test"
 
-        viewModel.onUserIntent(UiIntents.OnPhraseChanged(phrase))
+        viewModel.onUserIntent(UiIntents.OnPhraseChanged(userName))
         advanceUntilIdle()
 
-        assertEquals(phrase, viewModel.uiState.value.phrase)
+        assertEquals(userName, viewModel.uiState.value.userName)
     }
 
     @Test
     fun `when searchUsersUseCase returns success, showUsersList is called`() = runTest {
         val users = listOf(UserModel("url", "userName"))
-        val phrase = "test"
-        whenever(searchUsersUseCase(phrase)).thenReturn(SearchUsersDataState.Success(users))
+        val userName = "test"
+        whenever(searchUsersUseCase(userName)).thenReturn(SearchUsersDataState.Success(users))
 
-        viewModel.onUserIntent(UiIntents.OnPhraseChanged(phrase))
+        viewModel.onUserIntent(UiIntents.OnPhraseChanged(userName))
         advanceUntilIdle()
 
         val uiState = viewModel.uiState.value
@@ -76,10 +76,10 @@ class GithubUserFinderScreenViewModelTest {
 
     @Test
     fun `when searchUsersUseCase returns failure, showError is called`() = runTest {
-        val phrase = "test"
-        whenever(searchUsersUseCase(phrase)).thenReturn(SearchUsersDataState.Failure)
+        val userName = "test"
+        whenever(searchUsersUseCase(userName)).thenReturn(SearchUsersDataState.Failure)
 
-        viewModel.onUserIntent(UiIntents.OnPhraseChanged(phrase))
+        viewModel.onUserIntent(UiIntents.OnPhraseChanged(userName))
         advanceUntilIdle()
 
         val uiState = viewModel.uiState.value
@@ -155,13 +155,13 @@ class GithubUserFinderScreenViewModelTest {
 
     @Test
     fun `when user requests next page, searchUsers is called`() = runTest {
-        val phrase = "test"
+        val userName = "test"
 
-        viewModel.onUserIntent(UiIntents.OnPhraseChanged(phrase))
+        viewModel.onUserIntent(UiIntents.OnPhraseChanged(userName))
         viewModel.onUserIntent(UiIntents.OnNextPageRequested)
         advanceUntilIdle()
 
-        verify(searchUsersUseCase, Times(2)).invoke(phrase)
+        verify(searchUsersUseCase, Times(2)).invoke(userName)
     }
 
     @Test

@@ -7,7 +7,7 @@ data class SearchUserUiState(
     val isEmpty: Boolean = true,
     val isError: Boolean = false,
     val users: List<UserModel> = emptyList(),
-    val phrase: String = "",
+    val userName: String = "",
     val selectedUser: SelectedUser = SelectedUser.EMPTY,
     val shouldShowBottomSheet: Boolean = false,
 ) {

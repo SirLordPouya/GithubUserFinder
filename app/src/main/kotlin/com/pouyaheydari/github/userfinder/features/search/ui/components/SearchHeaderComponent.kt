@@ -36,7 +36,7 @@ import com.pouyaheydari.github.userfinder.common.ui.theme.HeaderShape
 @Composable
 fun SearchHeaderComponent(
     modifier: Modifier = Modifier,
-    searchPhrase: String = "",
+    userName: String = "",
     onSearchValueChange: (String) -> Unit = {},
     onSearchIconClicked: () -> Unit = {},
     isLoading: Boolean = false
@@ -45,7 +45,7 @@ fun SearchHeaderComponent(
         HeaderComponent(modifier)
         SearchComponent(
             this,
-            searchPhrase,
+            userName,
             onSearchValueChange,
             onSearchIconClicked,
             isLoading
@@ -75,7 +75,7 @@ private fun HeaderComponent(modifier: Modifier) {
 @Composable
 private fun SearchComponent(
     boxScope: BoxScope,
-    searchPhrase: String = "",
+    userName: String = "",
     onSearchValueChange: (String) -> Unit,
     onSearchIconClicked: () -> Unit,
     isLoading: Boolean = false
@@ -87,7 +87,7 @@ private fun SearchComponent(
             .align(Alignment.BottomCenter),
     ) {
         SearchFieldComponent(
-            searchPhrase = searchPhrase,
+            userName = userName,
             onSearchValueChange = onSearchValueChange,
             isLoading = isLoading,
             onSearchIconClicked = onSearchIconClicked
@@ -98,14 +98,14 @@ private fun SearchComponent(
 @Composable
 private fun SearchFieldComponent(
     modifier: Modifier = Modifier,
-    searchPhrase: String = "",
+    userName: String = "",
     onSearchValueChange: (String) -> Unit = {},
     isLoading: Boolean = false,
     onSearchIconClicked: () -> Unit = {}
 ) {
     TextField(
         modifier = modifier.fillMaxWidth(),
-        value = searchPhrase,
+        value = userName,
         placeholder = {
             Text(text = stringResource(R.string.please_enter_a_username))
         },

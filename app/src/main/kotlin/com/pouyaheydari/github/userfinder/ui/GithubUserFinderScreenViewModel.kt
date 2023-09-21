@@ -39,8 +39,8 @@ class GithubUserFinderScreenViewModel @Inject constructor(
     fun onUserIntent(userIntent: UiIntents) =
         when (userIntent) {
             is UiIntents.OnPhraseChanged -> {
-                _uiState.update { it.copy(phrase = userIntent.phrase, isLoading = true) }
-                updateUserNameFlow(userIntent.phrase)
+                _uiState.update { it.copy(userName = userIntent.userName, isLoading = true) }
+                updateUserNameFlow(userIntent.userName)
             }
 
             is UiIntents.OnUserItemSelected -> {
@@ -58,13 +58,13 @@ class GithubUserFinderScreenViewModel @Inject constructor(
 
             UiIntents.OnNextPageRequested -> {
                 _uiState.update { it.copy(isLoading = true) }
-                searchUsers(_uiState.value.phrase)
+                searchUsers(_uiState.value.userName)
             }
         }
 
-    private fun updateUserNameFlow(phrase: String) {
+    private fun updateUserNameFlow(userName: String) {
         viewModelScope.launch {
-            userNameFlow.emit(phrase)
+            userNameFlow.emit(userName)
         }
     }
 
@@ -89,9 +89,9 @@ class GithubUserFinderScreenViewModel @Inject constructor(
         }
     }
 
-    private fun searchUsers(phrase: String) {
+    private fun searchUsers(userName: String) {
         viewModelScope.launch {
-            when (val result = searchUsersUseCase(phrase)) {
+            when (val result = searchUsersUseCase(userName)) {
                 is SearchUsersDataState.Failure -> showError()
 
                 is SearchUsersDataState.Success -> showUsersList(result.users)
