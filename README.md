@@ -19,7 +19,9 @@ I'd like to share some of the design decisions I made:
   However, I found this approach to be somewhat redundant even for a sample application. Therefore,
   I opted for a single-module architecture.
 
-* Due to time constraints, I couldn't implement the following improvements:
+* Due to time constraints, I couldn't make the following improvements:
+    * Clicking on search button is not doing anything
+    * The user list is not refreshable
     * Hiding the keyboard when an error message is displayed.
     * Enhancements to start fetching the next page earlier, before the user reaches the end of the
       list.
