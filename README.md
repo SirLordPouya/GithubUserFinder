@@ -21,6 +21,8 @@ I'd like to share some of the design decisions I made:
 
 * Due to time constraints, I couldn't make the following improvements:
     * Clicking on search button is not doing anything
+    * Empty state is not covered
+    * Empty string is not handled and will search for empty userName
     * The user list is not refreshable
     * Hiding the keyboard when an error message is displayed.
     * Enhancements to start fetching the next page earlier, before the user reaches the end of the
