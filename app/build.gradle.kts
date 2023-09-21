@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "com.pouyaheydari.github.userfinder.HiltTestRunner"
+        testInstrumentationRunner = "org.junit.platform.launcher.AndroidJUnitPlatformRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
