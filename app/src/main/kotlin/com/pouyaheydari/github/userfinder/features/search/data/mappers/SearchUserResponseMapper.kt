@@ -8,10 +8,13 @@ fun map(response: Result<SearchUsersApiResponse>): SearchUsersDataState =
     when {
         response.isSuccess -> handleSuccess(response.getOrNull())
 
-        else -> handleFailure()
+        else -> handleFailure(response.exceptionOrNull())
     }
 
-private fun handleFailure(): SearchUsersDataState = SearchUsersDataState.Failure
+private fun handleFailure(exception: Throwable? = null): SearchUsersDataState {
+    exception?.printStackTrace()
+    return SearchUsersDataState.Failure
+}
 
 private fun handleSuccess(response: SearchUsersApiResponse?): SearchUsersDataState =
     response?.items?.let { list ->
