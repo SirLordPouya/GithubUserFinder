@@ -4,7 +4,8 @@ import com.pouyaheydari.github.userfinder.features.search.data.models.Item
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersApiResponse
 import com.pouyaheydari.github.userfinder.features.search.data.models.SearchUsersDataState
 import com.pouyaheydari.github.userfinder.features.search.data.models.UserModel
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SearchUserResponseMapperTest {
@@ -17,8 +18,8 @@ class SearchUserResponseMapperTest {
 
         val result = map(response)
 
-        Assert.assertTrue(result is SearchUsersDataState.Success)
-        Assert.assertEquals(result, expected)
+        assertTrue(result is SearchUsersDataState.Success)
+        assertEquals(result, expected)
     }
 
     @Test
@@ -57,8 +58,8 @@ class SearchUserResponseMapperTest {
 
         val result = map(response)
 
-        Assert.assertTrue(result is SearchUsersDataState.Success)
-        Assert.assertEquals(result, expected)
+        assertTrue(result is SearchUsersDataState.Success)
+        assertEquals(result, expected)
     }
 
     @Test
@@ -67,7 +68,7 @@ class SearchUserResponseMapperTest {
 
         val result = map(response)
 
-        Assert.assertTrue(result is SearchUsersDataState.Failure)
+        assertTrue(result is SearchUsersDataState.Failure)
     }
 
     private fun getSearchUsersApiResponse(items: List<Item>) = SearchUsersApiResponse(
