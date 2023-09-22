@@ -23,9 +23,11 @@ I'd like to share some of the design decisions I made:
     * Clicking on search button is not doing anything
     * Empty state is not covered
     * Empty string is not handled and will search for empty userName
+    * Using a logger instead of printStackTrace()
     * The user list is not refreshable
     * Hiding the keyboard when an error message is displayed.
     * Enhancements to start fetching the next page earlier, before the user reaches the end of the
       list.
+    * Not calling the next page when the list is short or has reached the api call limit.
 
 I thoroughly enjoyed working on this challenge, and I hope you'll enjoy reviewing it as well.
